@@ -1,10 +1,8 @@
-import axios from "axios";
+import { AxiosInstance } from "axios";
 import { useEffect, useState } from "react";
 import { IResponse } from "../interfaces/IResponse";
-import { ITables } from "../interfaces/ITables";
-import { HttpService } from "../services/HttpService";
 
-export const useFetchWithClasses = <T>(): IResponse<T> => {
+export const useFetchWithClasses = <T>(dataSource: AxiosInstance): IResponse<T> => {
   const [tables, settables] = useState<IResponse<T>>({
       loading: true,
       data: undefined,
@@ -12,11 +10,10 @@ export const useFetchWithClasses = <T>(): IResponse<T> => {
       responseCode: undefined
   });
   useEffect(() => {
-    const http = new HttpService();
-    http.httpGet<T>("http://127.0.0.1:8000/api/mesas").then((response) => {
+    dataSource.get<T>("mesas").then(({data}) => {
         settables({
             loading: false,
-            data: response,
+            data,
             errorMessage: undefined,
             responseCode: 200
         });

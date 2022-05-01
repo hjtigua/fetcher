@@ -1,14 +1,13 @@
 import { Link } from 'react-router-dom';
+import { restaurantApi } from '../api/restaurantApi';
 import SecureData from '../components/SecureData';
 import Tables from '../components/Tables';
 import { useFetchWithClasses } from '../hooks/useFetchWithClasses';
-import { useTesthook } from '../hooks/useTesthook';
 import { ITables } from '../interfaces/ITables';
-import { HttpService } from '../services/HttpService';
 
 export default function FooScreen() {
   // const tables = useTesthook();
-  const {loading, data: tables, errorMessage, responseCode} = useFetchWithClasses<ITables[]>();
+  const {loading, data: tables, errorMessage, responseCode} = useFetchWithClasses<ITables[]>(restaurantApi);
   console.log(loading, tables, errorMessage, responseCode);
 
   return (

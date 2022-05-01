@@ -4,7 +4,7 @@ export class HttpService {
   // }
 
  async httpGet<T>(url: string): Promise<T> {
-    const response = await axios.get<T>(url);
+    const response = await axios.get<T>(url);    
     return response.data;   
   }
 }
